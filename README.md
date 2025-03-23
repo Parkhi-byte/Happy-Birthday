@@ -3,8 +3,12 @@ A dynamic, interactive, and responsive birthday wish website built using HTML, C
 
 ## 🚀 Features
 ✅ Multi-page Layout - Includes home, wishes, and memories pages.
+
 ✅ Animations - Balloons with wavy tails, rippling circles, toffees, and confetti.
+
 ✅ Background Music - Loops seamlessly for an immersive experience.
+
 ✅ Customizable Messages & Images - Add personalized birthday wishes.
+
 ✅ Fully Responsive - Works perfectly on mobile, tablet, and desktop.
 
