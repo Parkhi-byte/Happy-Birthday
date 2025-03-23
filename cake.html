@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Cake Cutting</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #D7EBF4, #A3D8F4);
+            overflow: hidden;
+        }
+        .cake-container {
+            position: relative;
+            text-align: center;
+        }
+        .cake {
+            width: 200px;
+            height: 150px;
+            background: #FFB6C1;
+            border-radius: 20px;
+            position: relative;
+            border: 5px solid #F06292;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .icing {
+            width: 100%;
+            height: 50px;
+            background: #fff;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            position: absolute;
+            top: 0;
+        }
+        .candle {
+            width: 12px;
+            height: 40px;
+            background: red;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 4px;
+        }
+        .flame {
+            width: 15px;
+            height: 15px;
+            background: yellow;
+            border-radius: 50%;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px yellow;
+            animation: flicker 1.5s infinite alternate;
+        }
+        .knife {
+            width: 5px;
+            height: 80px;
+            background: #333;
+            position: absolute;
+            top: -40px;
+            left: 100px;
+            animation: cut 1s forwards;
+            display: none;
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+        @keyframes cut {
+            from { transform: rotate(0); }
+            to { transform: rotate(-45deg) translateY(50px); }
+        }
+        @keyframes flicker {
+            from { opacity: 0.8; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="birthdaysong.mp3" type="audio/mpeg">
+    </audio>
+
+    
+    <div class="cake-container">
+        <h1>🎂 Happy Birthday! 🎉</h1><br>
+        <div class="cake" id="cake">
+            <div class="icing"></div>
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+            <div class="knife" id="knife"></div>
+        </div>
+        <canvas class="confetti" id="confettiCanvas"></canvas>
+
+            <div class="container">
+                <h3>Click on the cake to cut</h3>
+                
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="memories.html">Memories</a>
+                    <a href="wishes.html">Wishes</a>
+                </div>
+            </div>
+        </body>
+        
+    </div>
+
+    <script>
+        document.getElementById('cake').addEventListener('click', function() {
+            document.getElementById('knife').style.display = 'block';
+            setTimeout(() => {
+                startConfetti();
+                alert("Yay! Cake cut successfully! 🎂🎉");
+            }, 1000);
+        });
+
+        function startConfetti() {
+            const canvas = document.getElementById("confettiCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const pieces = Array.from({ length: 100 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 6 + 2,
+                d: Math.random() * 2 + 2,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`
+            }));
+
+            function drawConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                pieces.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, false);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                });
+            }
+
+            function updateConfetti() {
+                pieces.forEach(p => {
+                    p.y += p.d;
+                    if (p.y > canvas.height) p.y = 0;
+                });
+                drawConfetti();
+                requestAnimationFrame(updateConfetti);
+            }
+
+            updateConfetti();
+        }
+    </script>
+</body>
+</html>
