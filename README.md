@@ -12,3 +12,5 @@ A dynamic, interactive, and responsive birthday wish website built using HTML, C
 
 ✅ Fully Responsive - Works perfectly on mobile, tablet, and desktop.
 
+## 🌐 Live Demo
+🎉 Experience it here: hepy-bday.netlify.app
